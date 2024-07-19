@@ -9,6 +9,8 @@ public class CustomerDto {
     private String address;
     private String phone;
 
+    private String role;
+
     public CustomerDto(){};
     public CustomerDto(String userId, String password, String name, int age, String address, String phone) {
         this.userId = userId;
@@ -65,5 +67,13 @@ public class CustomerDto {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
