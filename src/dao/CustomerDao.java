@@ -68,4 +68,29 @@ public class CustomerDao {
         }
         return -1;
     }
+
+    // 사용자의 역할을 확인 - 구매자1 판매자2
+    public String getUserRole(String userId) {
+        String sql = "SELECT r.rolename FROM customer c JOIN role r ON c.role_roleid = r.roleid WHERE c.custid = ?; ";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String role = null;
+
+        try {
+            connection = DBManager.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                role = resultSet.getString("rolename");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.releaseConnection(resultSet, preparedStatement, connection);
+        }
+        return role;
+    }
 }
